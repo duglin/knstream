@@ -12,5 +12,4 @@ spec:
       containers:
       - image: IMAGE
         ports:
-        - name: h2c
-          containerPort: 8080
+        - containerPort: 8080

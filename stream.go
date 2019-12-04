@@ -27,8 +27,10 @@ func main() {
 
 		start := time.Now().Unix()
 		buf := make([]byte, 10)
+		fmt.Printf("Starting loop\n")
 		for {
 			len, err := io.ReadFull(bufrw, buf)
+			fmt.Printf("len: %d  err: %s\n", len, err)
 			if len < 10 {
 				fmt.Printf("Read err: %s\n", err)
 				break

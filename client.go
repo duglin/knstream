@@ -28,7 +28,7 @@ func main() {
 	}
 	fmt.Printf("Connected\n")
 
-	str := fmt.Sprintf("POST / HTTP/1.0\r\nHost:%s\r\n\r\n", url.Host)
+	str := fmt.Sprintf("POST / HTTP/1.1\r\nHost: %s\r\nUser-Agent: myclient/1.0\r\n\r\n", url.Host)
 	fmt.Print(str)
 	if _, err = fmt.Fprintf(conn, str); err != nil {
 		fmt.Printf("Error sending POST: %s\n", err)
