@@ -6,6 +6,7 @@ import (
 	"io"
 	"net"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -63,7 +64,13 @@ func main() {
 			time.Sleep(5 * time.Second)
 		}
 	} else {
-		url := fmt.Sprintf("ws://%s:%d", host, *port)
+		query := ""
+		if i := strings.Index(host, "?"); i >= 0 {
+			query = host[i:]
+			host = host[:i]
+		}
+
+		url := fmt.Sprintf("ws://%s:%d/%s", host, *port, query)
 		fmt.Printf("url: %s\n", url)
 		c, _, err := websocket.DefaultDialer.Dial(url, nil)
 		if err != nil {
