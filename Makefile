@@ -1,5 +1,7 @@
 all: client stream .stream
 
+export GO111MODULE=off
+
 client: client.go
 	go build -o client client.go
 

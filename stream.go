@@ -9,6 +9,9 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	"net/http/httptest"
+	"net/http/httputil"
+	"net/url"
 )
 
 func main() {
@@ -78,5 +81,14 @@ func main() {
 	})
 
 	fmt.Printf("Listening on port 8080\n")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	go func() {
+		log.Fatal(http.ListenAndServe(":8080", nil))
+	}()
+
+	u, _ := url.Parse("http://localhost:8080")
+	proxy := httptest.NewServer(httputil.NewSingleHostReverseProxy(u))
+	defer proxy.Close()
+
+	fmt.Printf("URL: %s\n", proxy.URL)
+	time.Sleep(1000 * time.Second)
 }
